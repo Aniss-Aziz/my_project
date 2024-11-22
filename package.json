@@ -6,6 +6,7 @@
     },
     "scripts": {
         "start": "cd backend && node server.js",
+        "start-prod": "cd frontend && ng serve",
         "build": "cd frontend && npm install && npm run build"
     }
 }
