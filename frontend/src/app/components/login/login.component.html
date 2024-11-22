@@ -1,0 +1,62 @@
+<div class="container min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="row w-100">
+      <!-- La colonne pour centrer le formulaire -->
+      <div class="col-md-6 mx-auto">
+        <div class="card p-4">
+          <h2 class="text-center mb-4">Connexion</h2>
+  
+          <!-- Affichage des erreurs -->
+          <div *ngIf="errorMessage" class="alert alert-danger text-center">
+            {{ errorMessage }}
+          </div>
+  
+          <!-- Formulaire de connexion -->
+          <form (ngSubmit)="login()">
+            <!-- Champ Nom d'utilisateur -->
+            <div class="row mb-3">
+              <div class="col-12">
+                <label for="username" class="form-label">Nom d'utilisateur</label>
+                <input
+                  id="username"
+                  [(ngModel)]="username"
+                  name="username"
+                  type="text"
+                  class="form-control"
+                  placeholder="Entrez votre nom d'utilisateur"
+                  required
+                />
+              </div>
+            </div>
+  
+            <!-- Champ Mot de passe -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input
+                  id="password"
+                  [(ngModel)]="password"
+                  name="password"
+                  type="password"
+                  class="form-control"
+                  placeholder="Entrez votre mot de passe"
+                  required
+                />
+              </div>
+            </div>
+  
+            <!-- Bouton Se connecter -->
+            <div class="row">
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+              </div>
+            </div>
+          </form>
+          <p class="text-center mt-0 mb-2 ">ou</p>
+            <div class="row text-center">
+              <a class="btn btn-sm btn-primary w-100" href="/register">S'inscrire</a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,111 @@
+<div class="container mt-4">
+  <!-- Sélecteur pour filtrer les tâches par statut -->
+  <div class="filter-container mb-3 col-3">
+    <label for="statusFilter" class="form-label">Filtrer par statut :</label>
+    <select id="statusFilter" [(ngModel)]="filterStatus" (change)="filterTasks()" class="form-select">
+      <option value="">Tous</option>
+      <option value="En cours">En cours</option>
+      <option value="Terminé">Terminé</option>
+    </select>
+  </div>
+  
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Description</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of filteredTaskList">
+          <td>{{ task?.title }}</td>
+          <td>{{ task?.description }}</td>
+          <td><span class="badge" [ngClass]="task?.status === 'En cours' ? 'bg-warning' : 'bg-success'">{{ task?.status }}</span></td>
+          <td>
+            <div *ngIf="loggedUserObj?.role === 'admin'">
+              <button class="badge bg-danger btn btn-md" (click)="deleteTask(task.id)">Supprimer</button>
+            </div>
+          <button class="badge bg-primary btn btn-md" (click)="editTask(task)">Modifier</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Message de succès pour la suppression -->
+  <div *ngIf="successDltMessage" class="alert alert-success">
+    {{ successDltMessage }}
+  </div>
+
+  <!-- Message de succès pour la suppression -->
+  <div *ngIf="successDltMessage" class="alert alert-success">
+    {{ successDltMessage }}
+  </div>
+  <div class="d-flex justify-content-around align-content-center pb-5">
+      <!-- Formulaire pour ajouter une tâche -->
+  <div class="card mt-4 col-md-4">
+    <div class="card-body">
+      <h5 class="card-title">Ajouter une tâche</h5>
+      <form (ngSubmit)="addTask()" #taskForm="ngForm" novalidate>
+        <div class="form-group mb-3">
+          <input type="text" [(ngModel)]="newTask.title" name="title" class="form-control" placeholder="Titre" required />
+        </div>
+        <div class="form-group mb-3">
+          <input type="text" [(ngModel)]="newTask.description" name="description" class="form-control" placeholder="Description" required />
+        </div>
+        <div class="form-group mb-3">
+          <select [(ngModel)]="newTask.status" name="status" class="form-select" required>
+            <option value="" disabled>Choisir un statut</option>
+            <option value="En cours">En cours</option>
+            <option value="Terminé">Terminé</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+      </form>
+      
+      <!-- Message de succès pour l'ajout -->
+      <div *ngIf="successMessage" class="alert alert-success mt-2">
+        {{ successMessage }}
+      </div>
+
+      <!-- Message d'erreur général -->
+      <div *ngIf="errorMessage" class="alert alert-danger mt-2">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulaire pour modifier une tâche -->
+  <div *ngIf="editTaskData.id" class="card mt-4 col-md-4">
+    <div class="card-body">
+      <h5 class="card-title">Modifier la tâche</h5>
+      <form (ngSubmit)="editTaskData.id ? updateTask() : addTask()" #taskForma="ngForm" novalidate>
+        <div class="form-group mb-3">
+          <input type="text" [(ngModel)]="editTaskData.title" name="title" class="form-control" placeholder="Titre" required />
+        </div>
+        <div class="form-group mb-3">
+          <input type="text" [(ngModel)]="editTaskData.description" name="description" class="form-control" placeholder="Description" required />
+        </div>
+        <div class="form-group mb-3">
+          <select [(ngModel)]="editTaskData.status" name="status" class="form-select" required>
+            <option value="" disabled>Choisir un statut</option>
+            <option value="En cours">En cours</option>
+            <option value="Terminé">Terminé</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-warning">{{ editTaskData.id ? 'Mettre à jour' : 'Ajouter' }}</button>
+      </form>
+    </div>
+  </div>
+  </div>
+
+
+
+  <!-- Afficher un message d'erreur général -->
+  <div *ngIf="errorMessage" class="alert alert-danger mt-2">
+    {{ errorMessage }}
+  </div>
+</div>
