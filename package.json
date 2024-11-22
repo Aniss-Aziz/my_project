@@ -1,0 +1,11 @@
+{
+    "name": "my_project",
+    "version": "1.0.0",
+    "engines": {
+        "node": ">=20 <21"
+    },
+    "scripts": {
+        "start": "cd backend && node server.js",
+        "build": "cd frontend && npm run build"
+    }
+}
